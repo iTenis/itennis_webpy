@@ -1,0 +1,252 @@
+{%extends 'base/base_tpl.html'%}
+{%block head%}
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<link href="/static/css/datatables.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/css/datatables.bootstrap.css" rel="stylesheet" type="text/css"/>
+<link href="/static/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/css/jquery.fancybox.css" rel="stylesheet" type="text/css"/>
+<link href="/static/css/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
+<link href="/static/css/bootstrap-select.min.css" rel="stylesheet" type="text/css">
+<link href="/static/css/profile.min.css" rel="stylesheet" type="text/css">
+<!-- END PAGE LEVEL PLUGINS -->
+{%endblock head%}
+{%block body%}
+<div class="page-container">
+    <!-- BEGIN CONTENT -->
+    <div class="container">
+    <div class="page-content-wrapper">
+        <!-- BEGIN PAGE CONTENT INNER -->
+        <div class="page-content-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-horizontal form-row-seperated">
+                        <div class="portlet">
+                            <div class="portlet-body">
+                                <div class="tabbable-bordered">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#tab_meta" data-toggle="tab"> 新建文章</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab_meta">
+                                            <div class="form-body">
+
+
+
+
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">类别:</label>
+                                                <div class="col-md-4">
+                                                    <div class="btn-group bootstrap-select bs-select form-control">
+                                                        <div class="dropdown-menu open"
+                                                             style="max-height: 804px; overflow: hidden; min-height: 0px;">
+                                                            <ul class="dropdown-menu inner" role="menu"
+                                                                style="max-height: 802px; overflow-y: auto; min-height: 0px;">
+                                                                <li data-original-index="0" class=""><a tabindex="0"
+                                                                                                        class=""
+                                                                                                        style=""
+                                                                                                        data-tokens="null"><span
+                                                                        class="text">Mustard</span><span
+                                                                        class="fa fa-check check-mark"></span></a></li>
+                                                                <li data-original-index="1" class=""><a tabindex="0"
+                                                                                                        class=""
+                                                                                                        style=""
+                                                                                                        data-tokens="null"><span
+                                                                        class="text">Ketchup</span><span
+                                                                        class="fa fa-check check-mark"></span></a></li>
+                                                                <li data-original-index="2" class="selected"><a
+                                                                        tabindex="0" class="" style=""
+                                                                        data-tokens="null"><span
+                                                                        class="text">Relish</span><span
+                                                                        class="fa fa-check check-mark"></span></a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <select class="bs-select form-control" id="type" tabindex="-98">
+                                                              {% for item in articlecates%}
+                                                                <option id="{{item.id}}"> {{item.acatename}}</option>
+
+                                                                {% endfor %}
+
+
+                                                        </select></div>
+                                                </div>
+                                            </div>
+                                            </div>
+
+
+
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">标题:</label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control maxlength-handler" id="title"
+                                                           name="title" maxlength="100" placeholder="">
+                                                    <span class="help-block"> max 100 chars </span>
+                                                </div>
+                                            </div>
+
+
+                                             <div class="form-group">
+                                                <label class="col-md-2 control-label">封面:</label>
+                                                <div class="col-md-10">
+
+                                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""> </div>
+                                                                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
+                                                                            <div>
+                                                                                <span class="btn default btn-file">
+                                                                                    <span class="fileinput-new"> 选择图片 </span>
+                                                                                    <span class="fileinput-exists"> 修改 </span>
+                                                                                    <input type="file" name="..."> </span>
+                                                                                <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> 清空 </a>
+                                                                            </div>
+                                                                        </div>
+
+                                                </div>
+                                            </div>
+                                            <!--     <div class="form-group" hidden>
+                                                     <label class="col-md-2 control-label">内容:</label>
+                                                     <div class="col-md-10">
+                                                         <textarea class="form-control maxlength-handler" id="content" rows="8" name="product[meta_keywords]" maxlength="1000"></textarea>
+                                                         &lt;!&ndash;<span class="help-block"> max 1000 chars </span>&ndash;&gt;
+                                                     </div>
+                                                 </div>-->
+
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">内容:</label>
+                                                <div class="col-md-10">
+                                                    <textarea rows="8" id="content" name="content"
+                                                              maxlength="255"></textarea>
+                                                    <!-- <span class="help-block"> max 255 chars </span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-title">
+                                        <!--<div class="caption">
+                                            <i class="fa fa-shopping-cart"></i>Test Product </div>-->
+                                        <div class="actions" align="right">
+                                            <button type="button" name="back" class="btn btn-secondary-outline">
+                                                <i class="fa fa-angle-left"></i> 返回
+                                            </button>
+                                            <button class="btn btn-secondary-outline">
+                                                <i class="fa fa-reply"></i> 重置
+                                            </button>
+                                            <button type="button" class="btn btn-success" onclick="addArticle()">
+                                                <i class="fa fa-check"></i> 发布
+                                            </button>
+                                            <!--  <button class="btn btn-success">
+                                                  <i class="fa fa-check-circle"></i> Save & Continue Edit</button>-->
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+        </div>
+    <!-- END PAGE CONTENT INNER -->
+</div>
+</div>
+<!-- END PAGE CONTENT BODY -->
+<!-- END CONTENT BODY -->
+</div>
+<!-- END CONTENT -->
+
+</div>
+
+
+{%endblock body%}
+{%block js%}
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="/static/js/datatable.js" type="text/javascript"></script>
+<script src="/static/js/datatables.min.js" type="text/javascript"></script>
+<script src="/static/js/datatables.bootstrap.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap-maxlength.min.js" type="text/javascript"></script>
+<script src="/static/js/jquery.fancybox.pack.js" type="text/javascript"></script>
+<script src="/static/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="/static/js/ecommerce-products-edit.min.js" type="text/javascript"></script>
+<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script src="/static/js/components-bootstrap-select.min.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap-select.min.js" type="text/javascript"></script>
+<script src="/static/js/profile.min.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap-fileinput.js" type="text/javascript"></script>
+<script src="/static/js/jquery.sparkline.min.js" type="text/javascript"></script>
+<!--<script src="/static/js/ui-buttons.min.js" type="text/javascript"></script>-->
+
+
+<!--<script type="text/javascript" src='/static/tiny_mce/tiny_mce.js'></script>-->
+<!--<script type="text/javascript" src='/static/tinymce/js/jquery.min.js'></script>-->
+<script type="text/javascript" src='/static/tinymce/js/tinymce/tinymce.min.js'></script>
+<script type="text/javascript" src='/static/tinymce/js/tinymce/plugins/jquery.form.js'></script>
+<script type="text/javascript" src='/static/tinymce/js/tinymce/textarea.js'></script>
+
+
+<script type="text/javascript">
+
+    tinymce.init({
+    selector: "textarea",   // 选择该页面绑定的标签
+    themes: "modern",
+    menubar: false,
+    convert_urls: false,
+    height: 450,
+    plugins: [
+        'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        'searchreplace wordcount visualblocks visualchars code fullscreen',
+        'insertdatetime media nonbreaking save table contextmenu directionality',
+        'emoticons template paste textcolor colorpicker textpattern imagetools',
+        "link imageupload"
+    ],
+    toolbar: "undo redo | imageupload link | bold italic | styleselect fontselect fontsizeselect | bullist numlist outdent indent | alignleft aligncenter alignright alignjustify | print preview media | forecolor backcolor emoticons",
+    content_css: [
+    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+    '//www.tinymce.com/css/codepen.min.css'
+    ],
+    imageupload_url: '/upload_img/',    // 指定图片上传处理目录
+    language:'zh_CN'
+});
+</script>
+<script type="text/javascript">
+    function addArticle() {
+        var uid = $.cookie("uid");
+        var title = $("#title").val();
+        var content = tinyMCE.activeEditor.getContent();
+        var type= $("#type").val();
+        console.log(uid);
+        console.log(title);
+        console.log(content);
+        console.log(type);
+        // $.post({
+        //     url: '/aac/addarticle',
+        //     headers: {"X-CSRFToken": $.cookie('csrftoken')},
+        //     data: {'title': title, 'content': content, 'uid': uid},
+        //     contentType: 'application/x-www-form-urlencoded',
+        //     success: function (data) {
+        //         var data = JSON.parse(data);
+        //         console.log(data);
+        //         // $("title").html(data["title"]);
+        //         // if (data["status_code"] == 20000)
+        //         //     window.location.href = '/apc/login/2/';
+        //         // else
+        //         //     alert(get_status_code_desc(data["status_code"]));
+        //     }
+        // });
+    }
+
+</script>
+<!-- END PAGE LEVEL SCRIPTS -->
+{%endblock js%}sss

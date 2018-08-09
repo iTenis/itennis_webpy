@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+<form class="login-form" id="form_data">
+    <h3 class="form-title font-green">用户登录</h3>
+    <input type="text" autocomplete="off" placeholder="用户名" name="username" id="lusername"/>
+    <input type="password" autocomplete="off" placeholder="密码" name="password" id="lpassword"/>
+    <input type="text" autocomplete="off" placeholder="验证码" name="vialdcode" id="lvialdcode"/>
+    <img class="vialdcode_img" src="/apc/get_vaildcode_img/" alt="" width="200px" height="100px">
+    <button type="button" id="loginsubmit">登录</button>
+    <input type="checkbox" name="remember" id="lremember" value="1"/>记住
+    <a href="javascript:;" id="forget-password" class="forget-password">忘记密码?</a>
+</form>
+</body>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script>
+    $(function () {
+        $.get("/apc/login/", function(data){
+            var data = JSON.parse(data);    
+            if (data["status_code"]==20000) {
+                        window.location.href = '/'
+                    }
+});
+
+    });
+    $(function () {
+        $("#loginsubmit").click(function () {
+            function foo() {
+                $(".error").html("")
+            }
+            $.post({
+                url: '/apc/login/',
+                headers: {"X-CSRFToken": $.cookie('csrftoken')},
+                data: $("#form_data").serialize(),
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (data) {
+                    var data = JSON.parse(data);
+                    console.log(data);
+                    console.log(data['reurl']);
+                    if (data['reurl'] != ''){
+
+                        window.location.href = data['reurl']
+                    }
+                    if (data["status_code"]==20000) {
+                        window.location.href = '/'
+                    }
+                    else {
+                        $(".error").html(data["error_msg"]);
+                        setTimeout(foo, 3000)
+                    }
+                }
+            })
+        });
+
+        //#给验证码刷新
+        $(".vialdcode_img").click(function () {
+            $(this)[0].src += "?";
+            $(this).attr("src", $(this).attr("src") + '?');
+        });
+
+
+
+    })
+
+</script>
+</html>

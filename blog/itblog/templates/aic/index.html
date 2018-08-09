@@ -1,0 +1,156 @@
+{%extends 'base/base_tpl.html'%}
+{%block head%}
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<link href="/static/css/daterangepicker.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/css/morris.css" rel="stylesheet" type="text/css"/>
+<link href="/static/css/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/css/jqvmap.css" rel="stylesheet" type="text/css"/>
+<!-- END PAGE LEVEL PLUGINS -->
+<link href="/static/css/search.min.css" rel="stylesheet" type="text/css"/>
+
+<style>
+    .text-overflow {
+        margin: 0 auto;
+        display: block; /*内联对象需加*/
+        width: 10em;
+        word-break: keep-all; /* 不换行 */
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+    }
+
+</style>
+{%endblock head%}
+{%block body%}
+
+
+<div class="container">
+    <!-- BEGIN PAGE CONTENT INNER -->
+    <div class="page-content-inner">
+        <div class="search-page search-content-1">
+            <div class="search-bar ">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                 <button class="btn blue  bold" type="button">Search</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="search-desc clearfix"><span class="bold">“</span>
+                            孔子曰：三人行，则必有我师。是故弟子不必不如师，师不必贤于弟子，闻道有先后，术业有专攻，如是而已。<span class="bold">”</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="search-container ">
+                        <ul>
+                            {% for item in page_obj %}
+                            <li class="search-item clearfix">
+                                <a href="javascriptt:;">
+                                    <img src="/static/img/01.jpg"/>
+                                </a>
+                                <div class="search-content">
+                                    <h2 class="search-title">
+                                        <a href="javascript:;">{{item.posttittle}}</a>
+                                    </h2>
+                                    <p class="search-desc"> {{item.saycontent|slice:'100'}}...</p>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+
+                        <div class="search-pagination">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+
+                                    {% if page_obj.previous_page_number > 0 %}
+                                    <li>
+                                        <a href="?page={{ page_obj.previous_page_number}}" aria-label="Previous">
+                                            <span aria-hidden="true">«</span>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+
+                                    {% for page_num in page_list %}
+                                    {% if page_num == page_obj.number %}
+                                    <li class="active"><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                                    {% else %}
+                                    <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                    {% if page_obj.has_next %}
+                                    <li>
+                                        <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                            <span aria-hidden="true">»</span>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!-- BEGIN PORTLET-->
+                    <div>
+                        <div class="portlet light">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="icon-edit font-dark"></i>
+                                    <span class="caption-subject font-dark bold uppercase">热门文章</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                {% for item in data.data2 %}
+                                <div class="note note-success">
+                                    <h4 class="block">{{item.posttittle}}</h4>
+                                    <p> {{item.saycontent|slice:'35'}}...</p>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="portlet light">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="icon-edit font-dark"></i>
+                                    <span class="caption-subject font-dark bold uppercase">热点新闻</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                {% for item in data.data1 %}
+                                <div class="note note-warning">
+                                    <label class="block">{{item.posttittle}}</label>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PORTLET-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{%endblock body%}
+{%block js%}
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="/static/js/search.min.js" type="text/javascript"></script>
+<script src="/static/js/dashboard.min.js" type="text/javascript"></script>
+
+
+<!-- END PAGE LEVEL SCRIPTS -->
+{%endblock js%}
